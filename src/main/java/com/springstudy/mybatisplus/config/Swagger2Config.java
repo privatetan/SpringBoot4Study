@@ -30,10 +30,11 @@ public class Swagger2Config {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                //apis(Res)
                 .paths(PathSelectors.any())
                 .build()
-                .globalOperationParameters(pars)
-                .apiInfo(apiInfo());
+                .globalOperationParameters(pars);
+
     }
 
     private ApiInfo apiInfo() {
