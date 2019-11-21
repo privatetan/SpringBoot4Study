@@ -79,6 +79,14 @@
             <optional>true</optional>
         </dependency>
 
+        <!--xxl-job-->
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>2.1.1-SNAPSHOT</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
