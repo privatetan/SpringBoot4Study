@@ -8,11 +8,13 @@ import com.xxl.job.core.handler.annotation.JobHandler;
 import com.xxl.job.core.log.XxlJobLogger;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * 定时任务插入数据库
  */
 @JobHandler(value="userInsertHandler")
+@Component
 @Log4j2
 public class UserInsertHandler  extends IJobHandler {
     @Autowired
