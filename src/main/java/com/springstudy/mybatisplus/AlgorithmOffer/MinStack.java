@@ -8,6 +8,9 @@ import java.util.LinkedList;
  * 描述：
  * 定义栈的数据结构，请在该类型中实现一个能够得到栈的最小元素的 min 函数在该栈中，调用 min、push 及 pop 的时间复杂度都是 O(1)。
  *
+ * 思路：
+ * 使用辅助栈，存放最小值
+ *
  * 栈：使用LinkedList代替stack
  *
  *
@@ -34,7 +37,7 @@ public class MinStack {
     }
 
     /**
-     * 取值(移除栈顶值)
+     * 删值(移除栈顶值)
      */
     public void pop() {
       mainList.pop();
@@ -42,7 +45,7 @@ public class MinStack {
     }
 
     /**
-     * 查询栈顶值并返回
+     * 获取栈顶值
      * @return int
      */
     public int top() {
@@ -51,7 +54,7 @@ public class MinStack {
 
     /**
      * 获取最小元素
-     * @return
+     * @return int
      */
     public int min() {
      return minList.peek();
