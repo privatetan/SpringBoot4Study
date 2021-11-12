@@ -1,4 +1,4 @@
-package com.springstudy.mybatisplus.AlgorithmOffer;
+package com.springstudy.mybatisplus.AlgorithmOffer.day01;
 
 import java.util.LinkedList;
 
