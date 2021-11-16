@@ -29,7 +29,7 @@ public class RevertList2 {
      */
     public  ListNode reverseList2(ListNode head) {
        ListNode pre = null; //反转后的链表
-       ListNode cur = head; //被反转链表
+       ListNode cur = head; //被反转链表，用作迭代
        while(cur.next!=null){
            //临时将被反转的节点的下一个节点记录起来
            ListNode temp = head.next;
