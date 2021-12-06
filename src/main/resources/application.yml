@@ -1,10 +1,22 @@
-#数据库连接
+#工程相关
 spring:
+  profiles:
+    active: dev
+  application:
+    name: springboot4study
+# 数据库
   datasource:
-    url: jdbc:mysql:///chapter01?characterEncoding=utf-8&useSSL=false
-    username: root
-    password: TANtao0826
+    url: jdbc:mysql://150.158.55.44:3306/ssh_data?characterEncoding=utf-8&useSSL=false
+    username: sshUser
+    password: sshRoot5544
     driver-class-name: com.mysql.cj.jdbc.Driver
+# rabbit mq
+  rabbitmq:
+    host: 150.158.55.44
+    port: 5672
+    username: admin
+    password: 123456
+    virtual-host: /
 
 #xxl-job，配置文件
 xxl:
@@ -23,3 +35,4 @@ xxl:
 
 server:
   port: 8090
+

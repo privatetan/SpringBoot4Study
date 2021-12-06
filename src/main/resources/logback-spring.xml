@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/default.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <!-- 日志文件存放路径 -->
+    <springProperty name="log_dir" source="log_dir" defaultValue="/Users/privatetan/log"/>
+    <!-- 读取 application.properties 中的 log.level 属性，如果没有配置，默认 INFO -->
+    <springProperty name="LOG_LEVEL" source="log.level" defaultValue="INFO"/>
+    <!-- 读取 application.properties 中的 spring.application.name 属性 -->
+    <springProperty scope="content" name="springBootAppName" source="spring.application.name"/>
+    <!--读取 application.properties 中的 spring.profiles.active 属性-->
+    <springProperty scope="content" name="currentEnv" source="spring.profiles.active"/>
+
+    <!-- 日志打印到控制台 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 输出格式 -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %X{X-B3-TraceId:-} %X{X-B3-SpanId:-} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志保存到文件 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 输出格式 -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %X{req.remoteHost} %X{req.requestURI} %X{req.queryString} [%X{logId}] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天回滚 daily 及文件路径+文件名-->
+            <fileNamePattern>${log_dir}/${springBootAppName}-${currentEnv}/%d{yyyy-MM-dd}.debug.%i.log</fileNamePattern>
+            <!--文件达到最大 128MB 时会被切割和压缩 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>128MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- 历史日志最大保留 2 天 -->
+            <maxHistory>2</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 异步输出 -->
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志，默认的，如果队列的 80% 已满，则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度，该值会影响性能，默认值为256 -->
+        <queueSize>256</queueSize>
+        <!-- 添加附加的appender，最多只能添加一个 -->
+        <appender-ref ref="FILE"/>
+    </appender>
+
+    <!--根据环境配置-->
+    <!--  dev  -->
+    <springProfile name="dev">
+        <!-- 开发环境时激活 -->
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="javax.validation" level="DEBUG" />
+        <logger name="com" level="DEBUG" >
+            <appender-ref ref="ASYNC"/>
+        </logger>
+    </springProfile>
+    <!--  test  -->
+    <springProfile name="test">
+        <!-- 测试环境时激活 -->
+        <logger name="com" level="INFO" additivity="false">
+            <appender-ref ref="ASYNC"/>
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+    </springProfile>
+
+</configuration>
