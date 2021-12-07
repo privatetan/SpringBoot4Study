@@ -17,6 +17,11 @@ spring:
     username: admin
     password: 123456
     virtual-host: /
+# redis
+  redis:
+    host: 150.158.55.44
+    port: 6379
+
 
 #xxl-job，配置文件
 xxl:
