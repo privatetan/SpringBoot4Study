@@ -4,6 +4,7 @@ import com.springstudy.domain.User;
 import com.springstudy.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 用户service
@@ -32,6 +33,7 @@ public class UserService {
      *
      * @param user
      */
+    @Transactional
     public void insert(User user) {
         userMapper.insert(user);
     }

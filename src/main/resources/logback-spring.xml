@@ -4,7 +4,7 @@
     <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
 
     <!-- 日志文件存放路径 -->
-    <springProperty name="log_dir" source="log_dir" defaultValue="/Users/privatetan/log"/>
+    <springProperty name="log_dir" source="log_dir" defaultValue="/home/logs/springboot4study"/>
     <!-- 读取 application.properties 中的 log.level 属性，如果没有配置，默认 INFO -->
     <springProperty name="LOG_LEVEL" source="log.level" defaultValue="INFO"/>
     <!-- 读取 application.properties 中的 spring.application.name 属性 -->
@@ -54,7 +54,7 @@
     <!--  dev  -->
     <springProfile name="dev">
         <!-- 开发环境时激活 -->
-        <root level="INFO">
+        <root level="DEBUG">
             <appender-ref ref="CONSOLE"/>
         </root>
         <logger name="javax.validation" level="DEBUG" />

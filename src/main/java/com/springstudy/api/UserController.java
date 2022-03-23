@@ -33,6 +33,9 @@ public class UserController {
     }
 
 
+   public void getUserInfo(){
+        
+   }
 
 
 }
